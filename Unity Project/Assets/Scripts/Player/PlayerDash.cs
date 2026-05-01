@@ -5,8 +5,8 @@ using UnityEngine.InputSystem;
 public class PlayerDash : MonoBehaviour
 {
     private Rigidbody2D _rigidbody;
-    [SerializeField] private InputActionReference _dashAction;
-    [SerializeField] private InputActionReference _moveAction;
+    private InputActionReference _dashAction;
+    private InputActionReference _moveAction;
     [SerializeField] private float _dashSpeed;
     
     private bool _isDashing = false;
@@ -17,6 +17,8 @@ public class PlayerDash : MonoBehaviour
     
     void Start()
     {
+        _dashAction = PlayerInputManager.instance._dashAction;
+        _moveAction = PlayerInputManager.instance._moveAction;
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 

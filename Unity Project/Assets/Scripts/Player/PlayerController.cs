@@ -8,9 +8,10 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private BoxCollider2D _collider;
 
-    [SerializeField] private InputActionReference _moveAction;
-    [SerializeField] private InputActionReference _sprintAction;
-    
+    private InputActionReference _moveAction;
+    private InputActionReference _sprintAction;
+
+    public float moveSpeedMultiplier = 1.0f;
     [SerializeField] private float _moveSpeed = 1.75f;
     [SerializeField] private float _sprintSpeed = 3.0f;
 
@@ -23,6 +24,9 @@ public class PlayerController : MonoBehaviour
    
     void Start()
     {
+        _moveAction = PlayerInputManager.instance._moveAction;
+        _sprintAction = PlayerInputManager.instance._sprintAction;
+        
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<BoxCollider2D>();
         
@@ -52,7 +56,7 @@ public class PlayerController : MonoBehaviour
         if (_input != Vector2.zero)
             _input.Normalize();
 
-        _wishMovement = _input * (_currentSpeed * _implicitSpeedMultiplier * Time.fixedDeltaTime);
+        _wishMovement = (_input * (_currentSpeed * _implicitSpeedMultiplier) * moveSpeedMultiplier * Time.fixedDeltaTime);
         
         _rigidbody.linearVelocity = _wishMovement;
     }

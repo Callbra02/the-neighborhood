@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _collider = GetComponent<BoxCollider2D>();
         
-        _sprintAction.action.started += ctx => _isSprinting = true;
+        PlayerInputManager.instance._sprintAction.action.started += ctx => _isSprinting = true;
         _sprintAction.action.canceled += ctx => _isSprinting = false;
     }
 
